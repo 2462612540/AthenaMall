@@ -16,6 +16,4 @@
         <result property="orderId" column="order_id"/>
         <result property="orderSn" column="order_sn"/>
     </resultMap>
-
-
 </mapper>

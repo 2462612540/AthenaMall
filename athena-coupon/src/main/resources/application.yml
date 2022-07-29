@@ -21,6 +21,8 @@ spring:
       # 配置的Springcloud服务注册中心
       discovery:
         server-addr: 192.168.25.137:8848
+      config:
+        server-addr: 192.168.25.137:8848
   # 配置日期相关的格式的输出
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -32,3 +34,8 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+# 日志数据输出
+logging:
+  level:
+    com.zhuangxiaoyan.athena.coupon: debug

@@ -13,6 +13,4 @@
         <result property="sendTime" column="send_time"/>
         <result property="noticeType" column="notice_type"/>
     </resultMap>
-
-
 </mapper>

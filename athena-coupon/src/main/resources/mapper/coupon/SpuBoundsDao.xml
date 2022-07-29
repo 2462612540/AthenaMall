@@ -11,6 +11,4 @@
         <result property="buyBounds" column="buy_bounds"/>
         <result property="work" column="work"/>
     </resultMap>
-
-
 </mapper>

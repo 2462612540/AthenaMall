@@ -11,6 +11,4 @@
         <result property="reducePrice" column="reduce_price"/>
         <result property="addOther" column="add_other"/>
     </resultMap>
-
-
 </mapper>

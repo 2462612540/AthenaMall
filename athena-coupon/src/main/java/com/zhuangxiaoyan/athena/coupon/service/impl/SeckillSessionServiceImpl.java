@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 /**
- * @description CouponHistoryServiceImpl
+ * @description SeckillSessionServiceImpl
  * @date: 2022/7/28 16:36
  * @return:
  * @author: xjl

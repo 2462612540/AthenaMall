@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 /**
- * @description CouponHistoryServiceImpl
+ * @description HomeSubjectSpuServiceImpl
  * @date: 2022/7/28 16:36
  * @return:
  * @author: xjl
@@ -20,14 +20,16 @@ import java.util.Map;
 @Service("homeSubjectSpuService")
 public class HomeSubjectSpuServiceImpl extends ServiceImpl<HomeSubjectSpuDao, HomeSubjectSpuEntity> implements HomeSubjectSpuService {
 
+    /**
+     * @description 分页查询
+     * @param: params
+     * @date: 2022/7/28 16:48
+     * @return: com.zhuangxiaoyan.common.utils.PageUtils
+     * @author: xjl
+     */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<HomeSubjectSpuEntity> page = this.page(
-                new Query<HomeSubjectSpuEntity>().getPage(params),
-                new QueryWrapper<HomeSubjectSpuEntity>()
-        );
-
+        IPage<HomeSubjectSpuEntity> page = this.page(new Query<HomeSubjectSpuEntity>().getPage(params),new QueryWrapper<HomeSubjectSpuEntity>());
         return new PageUtils(page);
     }
-
 }

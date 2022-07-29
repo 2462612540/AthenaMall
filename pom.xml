@@ -13,7 +13,6 @@
         <module>athena-common</module>
         <module>athena-getway</module>
         <module>athena-admin</module>
-        <module>athena-generate</module>
         <module>athena-coupon</module>
         <module>athena-member</module>
         <module>athena-order</module>
@@ -24,5 +23,6 @@
         <module>athena-sms</module>
         <module>athena-ai</module>
         <module>athena-oss</module>
+        <module>athena-code-generate</module>
     </modules>
 </project>

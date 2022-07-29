@@ -18,17 +18,19 @@ import java.util.Map;
  * @return:
  * @author: xjl
 */
+
 @Service("couponHistoryService")
 public class CouponHistoryServiceImpl extends ServiceImpl<CouponHistoryDao, CouponHistoryEntity> implements CouponHistoryService {
-
+    /**
+     * @description 分页查询
+      * @param: params
+     * @date: 2022/7/28 16:47
+     * @return: com.zhuangxiaoyan.common.utils.PageUtils
+     * @author: xjl
+    */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<CouponHistoryEntity> page = this.page(
-                new Query<CouponHistoryEntity>().getPage(params),
-                new QueryWrapper<CouponHistoryEntity>()
-        );
-
+        IPage<CouponHistoryEntity> page = this.page(new Query<CouponHistoryEntity>().getPage(params),new QueryWrapper<CouponHistoryEntity>());
         return new PageUtils(page);
     }
-
 }

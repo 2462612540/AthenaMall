@@ -26,6 +26,4 @@
         <result property="memberLevel" column="member_level"/>
         <result property="publish" column="publish"/>
     </resultMap>
-
-
 </mapper>

@@ -12,6 +12,7 @@ import java.util.Map;
  * @author: xjl
 */
 public interface CouponSpuCategoryRelationService extends IService<CouponSpuCategoryRelationEntity> {
+
     /**
      * @description queryPage
       * @param: params

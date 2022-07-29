@@ -18,6 +18,4 @@
         <result property="publisherId" column="publisher_id"/>
         <result property="authId" column="auth_id"/>
     </resultMap>
-
-
 </mapper>

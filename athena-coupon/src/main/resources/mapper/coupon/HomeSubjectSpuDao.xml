@@ -11,6 +11,4 @@
         <result property="spuId" column="spu_id"/>
         <result property="sort" column="sort"/>
     </resultMap>
-
-
 </mapper>
