@@ -36,6 +36,20 @@ public class OrderController {
         return Result.ok().setData(orderEntity);
     }
 
+
+    /**
+     * @description 分页当前用户登陆用户的所有的订单信息
+     * @param: params
+     * @date: 2022/7/30 22:46
+     * @return: com.zhuangxiaoyan.common.utils.Result
+     * @author: xjl
+     */
+    @PostMapping("/listWithItem")
+    public Result listWithItem(@RequestBody Map<String, Object> params) {
+        PageUtils page = orderService.queryPageWithItem(params);
+        return Result.ok().put("page", page);
+    }
+
     /**
      * @description 查询所有数据
      * @param: params
@@ -44,7 +58,6 @@ public class OrderController {
      * @author: xjl
      */
     @RequestMapping("/list")
-    //@RequiresPermissions("order:order:list")
     public Result list(@RequestParam Map<String, Object> params) {
         PageUtils page = orderService.queryPage(params);
         return Result.ok().put("page", page);
@@ -58,7 +71,6 @@ public class OrderController {
      * @author: xjl
      */
     @RequestMapping("/info/{id}")
-    //@RequiresPermissions("order:order:info")
     public Result info(@PathVariable("id") Long id) {
         OrderEntity order = orderService.getById(id);
         return Result.ok().put("order", order);
@@ -72,7 +84,6 @@ public class OrderController {
      * @author: xjl
      */
     @RequestMapping("/save")
-    //@RequiresPermissions("order:order:save")
     public Result save(@RequestBody OrderEntity order) {
         orderService.save(order);
         return Result.ok();
@@ -86,7 +97,6 @@ public class OrderController {
      * @author: xjl
      */
     @RequestMapping("/update")
-    //@RequiresPermissions("order:order:update")
     public Result update(@RequestBody OrderEntity order) {
         orderService.updateById(order);
         return Result.ok();
@@ -100,7 +110,6 @@ public class OrderController {
      * @author: xjl
      */
     @RequestMapping("/delete")
-    //@RequiresPermissions("order:order:delete")
     public Result delete(@RequestBody Long[] ids) {
         orderService.removeByIds(Arrays.asList(ids));
         return Result.ok();

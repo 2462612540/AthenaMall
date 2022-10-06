@@ -10,6 +10,10 @@ spring:
   # 配置Spring服务的名称
   application:
     name: athena-member
+  #配置Spring resids的账户和连接
+  redis:
+    host: 192.168.25.137
+    port: 6379
   #配置Spring datebase的账户和连接
   datasource:
     username: root
@@ -24,6 +28,9 @@ spring:
   # 配置日期相关的格式的输出
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  # 关闭thymeleaf的缓存
+  thymeleaf:
+    cache: false
 
 # mybatis-plus的系列的属性
 mybatis-plus:

@@ -1,0 +1,7 @@
+#Spring service的属性
+server:
+  port: 9014
+  servlet:
+    session:
+      timeout: 30m
+

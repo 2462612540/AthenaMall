@@ -110,5 +110,10 @@ spring:
           uri: lb://athena-order
           predicates:
             - Host=order.athena.com
+        # low level athena-host-member service
+        - id: athena-host-member
+          uri: lb://athena-member
+          predicates:
+            - Host=member.athena.com
 
 
