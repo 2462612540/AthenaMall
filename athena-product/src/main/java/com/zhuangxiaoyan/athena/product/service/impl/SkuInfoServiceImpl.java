@@ -3,12 +3,12 @@ package com.zhuangxiaoyan.athena.product.service.impl;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhuangxiaoyan.athena.product.dao.SkuInfoDao;
 import com.zhuangxiaoyan.athena.product.entity.SkuImagesEntity;
 import com.zhuangxiaoyan.athena.product.entity.SkuInfoEntity;
 import com.zhuangxiaoyan.athena.product.entity.SpuInfoDescEntity;
+import com.zhuangxiaoyan.athena.product.fegin.SeckillFeignService;
 import com.zhuangxiaoyan.athena.product.service.*;
 import com.zhuangxiaoyan.athena.product.vo.SeckillSkuVo;
 import com.zhuangxiaoyan.athena.product.vo.SkuItemSaleAttrVo;
@@ -16,11 +16,11 @@ import com.zhuangxiaoyan.athena.product.vo.SkuItemVo;
 import com.zhuangxiaoyan.athena.product.vo.SpuItemAttrGroupVo;
 import com.zhuangxiaoyan.common.utils.PageUtils;
 import com.zhuangxiaoyan.common.utils.Query;
+import com.zhuangxiaoyan.common.utils.Result;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +51,9 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     @Autowired
     private ThreadPoolExecutor executor;
+
+    @Autowired
+    private SeckillFeignService seckillFeignService;
 
     /**
      * @description queryPage
@@ -134,11 +137,11 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
     /**
      * @description 展示当前sku的详情页面
-      * @param: skuId
+     * @param: skuId
      * @date: 2022/8/20 0:10
      * @return: com.zhuangxiaoyan.athena.product.vo.SkuItemVo
      * @author: xjl
-    */
+     */
     @Override
     public SkuItemVo itemPage(Long skuId) throws ExecutionException, InterruptedException {
         // 穿件返回的结果
@@ -175,8 +178,26 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             skuItemVo.setImages(imagesEntities);
         }, executor);
 
+        //3、查询当前的sku是否参与秒杀优惠
+        CompletableFuture<Void> seckillFuture = CompletableFuture.runAsync(() -> {
+            //3、远程调用查询当前sku是否参与秒杀优惠活动
+            Result skuSeckilInfo = seckillFeignService.getSkuSeckilInfo(skuId);
+            if (skuSeckilInfo.getCode() == 0) {
+                //查询成功
+                SeckillSkuVo seckilInfoData = skuSeckilInfo.getData("data", new TypeReference<SeckillSkuVo>() {
+                });
+                skuItemVo.setSeckillSkuVo(seckilInfoData);
+                if (seckilInfoData != null) {
+                    long currentTime = System.currentTimeMillis();
+                    if (currentTime > seckilInfoData.getEndTime()) {
+                        skuItemVo.setSeckillSkuVo(null);
+                    }
+                }
+            }
+        }, executor);
+
         //等到所有任务都完成
-        CompletableFuture.allOf(saleAttrFuture,descFuture,baseAttrFuture,imageFuture).get();
+        CompletableFuture.allOf(saleAttrFuture, descFuture, baseAttrFuture, imageFuture,seckillFuture).get();
         return skuItemVo;
     }
 }
