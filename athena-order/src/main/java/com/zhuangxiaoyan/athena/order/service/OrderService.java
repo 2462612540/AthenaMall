@@ -3,6 +3,7 @@ package com.zhuangxiaoyan.athena.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhuangxiaoyan.athena.order.entity.OrderEntity;
 import com.zhuangxiaoyan.athena.order.vo.*;
+import com.zhuangxiaoyan.common.to.SeckillOrderTo;
 import com.zhuangxiaoyan.common.utils.PageUtils;
 
 import java.util.Map;
@@ -86,5 +87,7 @@ public interface OrderService extends IService<OrderEntity> {
      * @author: xjl
     */
     String handlePayResult(PayAsyncVo asyncVo);
+
+    void createSeckillOrder(SeckillOrderTo orderTo);
 }
 

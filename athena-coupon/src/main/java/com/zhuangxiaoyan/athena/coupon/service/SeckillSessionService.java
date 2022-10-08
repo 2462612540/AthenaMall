@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.zhuangxiaoyan.athena.coupon.entity.SeckillSessionEntity;
 import com.zhuangxiaoyan.common.utils.PageUtils;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,5 +22,14 @@ public interface SeckillSessionService extends IService<SeckillSessionEntity> {
      * @author: xjl
     */
     PageUtils queryPage(Map<String, Object> params);
+
+    /**
+     * @description 获取最近三天的上架的商品
+      * @param:
+     * @date: 2022/10/7 19:59
+     * @return: java.util.List<com.zhuangxiaoyan.athena.coupon.entity.SeckillSessionEntity>
+     * @author: xjl
+    */
+    List<SeckillSessionEntity> getLates3DaySession();
 }
 

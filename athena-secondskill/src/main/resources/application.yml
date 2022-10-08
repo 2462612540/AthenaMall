@@ -1,0 +1,44 @@
+#Spring service的属性
+server:
+  port: 9015
+  servlet:
+    session:
+      timeout: 30m
+
+# Spring的系列的属性
+spring:
+  # 配置Spring服务的名称
+  application:
+    name: athena-secondskill
+  #配置Spring resids的账户和连接
+  redis:
+    host: 192.168.25.137
+    port: 6379
+  # Springcloud alibaba nacos注册中心
+  cloud:
+    nacos:
+      # 配置的Springcloud服务注册中心
+      discovery:
+        server-addr: 192.168.25.137:8848
+  # 配置的时间输出格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  # 关闭thymeleaf的缓存
+  thymeleaf:
+    cache: false
+
+# mybatis-plus的系列的属性
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  #设置实体类的自增主键
+  global-config:
+    db-config:
+      id-type: auto
+      #逻辑删除
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+# 日志数据输出
+logging:
+  level:
+    com.zhuangxiaoyan.athena.product: error

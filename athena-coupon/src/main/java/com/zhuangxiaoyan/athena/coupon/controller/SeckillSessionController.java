@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +23,20 @@ public class SeckillSessionController {
 
     @Autowired
     private SeckillSessionService seckillSessionService;
+
+    /**
+     * @description 查询的最近三天的活动
+      * @param:
+     * @date: 2022/10/7 19:57
+     * @return: com.zhuangxiaoyan.common.utils.Result
+     * @author: xjl
+    */
+    @GetMapping(value = "/Lates3DaySession")
+    public Result getLates3DaySession(){
+        List<SeckillSessionEntity> sessionEntities=seckillSessionService.getLates3DaySession();
+        return Result.ok().setData(sessionEntities);
+    }
+
 
     /**
      * @description 查询所有的数据

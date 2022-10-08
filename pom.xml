@@ -28,5 +28,6 @@
         <module>athena-code-generate</module>
         <module>Athena-sso-test</module>
         <module>athena-cart</module>
+        <module>athena-secondskill</module>
     </modules>
 </project>

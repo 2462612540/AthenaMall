@@ -116,4 +116,8 @@ spring:
           predicates:
             - Host=member.athena.com
 
-
+        # low level athena-host-secondskill service
+        - id: athena-host-secondskill
+          uri: lb://athena-secondskill
+          predicates:
+            - Host=secondskill.athena.com

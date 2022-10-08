@@ -9,6 +9,7 @@ import com.zhuangxiaoyan.athena.coupon.service.SeckillSkuRelationService;
 import com.zhuangxiaoyan.common.utils.PageUtils;
 import com.zhuangxiaoyan.common.utils.Query;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -30,7 +31,13 @@ public class SeckillSkuRelationServiceImpl extends ServiceImpl<SeckillSkuRelatio
     */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<SeckillSkuRelationEntity> page = this.page(new Query<SeckillSkuRelationEntity>().getPage(params),new QueryWrapper<SeckillSkuRelationEntity>());
+        QueryWrapper<SeckillSkuRelationEntity> queryWrapper = new QueryWrapper<>();
+        // 场次id
+        String promotionSessionId = (String) params.get("promotionSessionId");
+        if (StringUtils.isEmpty(promotionSessionId)){
+            queryWrapper.eq("promotion_session_id",promotionSessionId);
+        }
+        IPage<SeckillSkuRelationEntity> page = this.page(new Query<SeckillSkuRelationEntity>().getPage(params),queryWrapper);
         return new PageUtils(page);
     }
 }
