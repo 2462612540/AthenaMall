@@ -20,6 +20,10 @@ spring:
       # 配置的Springcloud服务注册中心
       discovery:
         server-addr: 192.168.25.137:8848
+    sentinel:
+      transport:
+        port: 8719
+        dashboard:  192.168.25.137:9018
   # 配置的时间输出格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

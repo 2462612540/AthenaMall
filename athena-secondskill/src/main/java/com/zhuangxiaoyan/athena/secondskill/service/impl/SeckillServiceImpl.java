@@ -1,5 +1,9 @@
 package com.zhuangxiaoyan.athena.secondskill.service.impl;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -149,15 +153,29 @@ public class SeckillServiceImpl implements SeckillService {
     }
 
     /**
+     * @description 降级的回调方法
+      * @param: e
+     * @date: 2022/10/9 10:09
+     * @return: java.util.List<com.zhuangxiaoyan.athena.secondskill.to.SeckillSkuRedisTo>
+     * @author: xjl
+    */
+    public List<SeckillSkuRedisTo> blockHandler(BlockException e) {
+        log.error("getCurrentSeckillSkusResource被限流了,{}",e.getMessage());
+        return null;
+    }
+
+    /**
      * @description 获取到当前可以参加秒杀商品的信息
      * @param:
      * @date: 2022/10/8 15:18
      * @return: java.util.List<com.zhuangxiaoyan.athena.secondskill.to.SeckillSkuRedisTo>
      * @author: xjl
      */
+    @SentinelResource(value = "getCurrentSeckillSkusResource",blockHandler = "blockHandler")
     @Override
     public List<SeckillSkuRedisTo> getCurrentSeckillSkus() {
-        try {
+        // 表示受保护的资源
+        try(Entry entry = SphU.entry("seckillSkus")) {
             //1、确定当前属于哪个秒杀场次
             long currentTime = System.currentTimeMillis();
             //从Redis中查询到所有key以seckill:sessions开头的所有数据
@@ -188,11 +206,13 @@ public class SeckillServiceImpl implements SeckillService {
                     break;
                 }
             }
-        } catch (Exception e) {
+        } catch (BlockException e) {
             log.error("资源被限流{}", e.getMessage());
         }
         return null;
     }
+
+
 
     /**
      * 根据skuId查询商品是否参加秒杀活动

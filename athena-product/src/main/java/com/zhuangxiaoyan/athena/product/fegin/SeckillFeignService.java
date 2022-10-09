@@ -1,5 +1,6 @@
 package com.zhuangxiaoyan.athena.product.fegin;
 
+import com.zhuangxiaoyan.athena.product.fallback.SeckillFeignServiceFallBack;
 import com.zhuangxiaoyan.common.utils.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @return:
  * @author: xjl
  */
-
-@FeignClient(value = "athena-secondskill")
+// 设置了熔断保护，如果远程调用失败，那就快速访问失败。
+@FeignClient(value = "athena-secondskill",fallback = SeckillFeignServiceFallBack.class)
 public interface SeckillFeignService {
 
     /**
