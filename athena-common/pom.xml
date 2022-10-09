@@ -98,17 +98,17 @@
             <artifactId>httpcore</artifactId>
             <version>4.2.1</version>
         </dependency>
-        <!-- 引入阿里巴巴的sentinel -->
+        <!-- 引入阿里巴巴的sentinel 限流 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-        <!-- 引入链路追踪sleuth -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <!-- zipkin -->
+<!--        &lt;!&ndash; 引入链路追踪sleuth 链路跟踪 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-sleuth</artifactId>-->
+<!--        </dependency>-->
+        <!-- zipkin 可视化页面 里面包括了sleuth -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>

@@ -31,6 +31,14 @@ spring:
       secret-key: 3XdiJv6fCZ3XrrESMd4I58XZT83t2x
       oss:
         endpoint: oss-cn-shanghai.aliyuncs.com
+  zipkin:
+    base-url: http://192.168.25.137:9411/
+    discovery-client-enabled: false
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1
   # 配置的时间输出格式
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
